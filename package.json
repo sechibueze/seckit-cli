@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/cli.js",
-    "dev": "ts-node cli.ts",
+    "dev": "npm run build && npm link && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -21,6 +21,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "chalk": "^5.4.1",
     "commander": "^13.1.0",
     "inquirer": "^12.6.1"
   }
