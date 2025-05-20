@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 import { program } from "commander";
-import inquirer from "inquirer";
-import { compressFile } from "./lib/compress";
+import inquirer, { DistinctQuestion } from "inquirer";
+import { compressFile, handleFileCompression } from "./lib/compress";
+import { encryptFile, handleEncryption } from "./lib/encrypt";
 program
   .name("seckit-cli")
   .version("1.0.0")
@@ -21,16 +22,10 @@ async function runInInteractiveMode() {
   ]);
 
   if (answer.action === "Compress Files") {
-    const { fileLocation } = await inquirer.prompt([
-      {
-        type: "input",
-        message: "Enter file path",
-        name: "fileLocation",
-      },
-    ]);
-
-    console.log("compressing file", fileLocation);
-    compressFile(fileLocation);
+    await handleFileCompression({});
+  }
+  if (answer.action === "Encrypt Files") {
+    await handleEncryption({});
   }
 }
 
@@ -40,11 +35,17 @@ program
   .argument("<file>", "file path or directory to compress")
   .action((file) => {
     console.log("Compressing ", file);
-    // const readStream = fs.createReadStream(source);
-    // const writeStream = fs.createWriteStream(destination || "output.md");
-
-    // readStream.pipe(writeStream);
+    handleFileCompression({ input: file });
   });
+
+// Encrypt Command
+program
+  .command("encrypt")
+  .description("Encry a file using AES-256-GCM")
+  .option("-i, --input <path>", "input file to encrypt")
+  .option("-p, --password <password>", "Password to encypt with")
+  .option("-o, --output <path>", "Encypted file path")
+  .action(handleEncryption);
 
 if (process.argv.length <= 2) {
   runInInteractiveMode();
