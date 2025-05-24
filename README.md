@@ -1,22 +1,81 @@
-# seckit-cli
+# seckit-cli 🔐
 
-> A powerful command-line tool for file compression, encryption, and upload built with Node.js and TypeScript. This tool provides easy-to-use functionalities for securing files, reducing their size, and uploading them to remote servers.
-
-## **Features**
-
-- **Compression**: Compress files to save space, with reporting on original and compressed sizes.
-- **Encryption**: Secure files with AES-256-GCM encryption using a password.
-- **Decryption**: Decrypt encrypted files using the correct password.
-- **File Upload**: Upload files to a remote server using HTTP POST requests.
+**A secure and efficient command-line tool for file compression, encryption, and upload.**  
+Built with Node.js and TypeScript, `seckit-cli` helps developers and power users streamline file processing tasks with a single tool.
 
 ---
 
-## **Installation**
+## ✨ Features
 
-Follow these steps to set up **Seckit-CLI** on your local machine:
+- **Compression**: Compress files or folders to reduce size.
+- **Encryption**: Encrypt files using AES-256-GCM encryption with a password.
+- **Decryption**: Decrypt AES-256-GCM encrypted files.
+- **Upload**: Upload files to remote servers via HTTP POST.
+- **Chained Operations**: Seamlessly chain operations like compress → encrypt → upload with flags.
 
-1. Clone the repository:
+---
 
-   ```bash
-   git clone https://github.com/sechibuze/seckit-cli.git
-   ```
+## 🚀 Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/sechibuze/seckit-cli.git
+cd seckit-cli
+
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+
+# Link the CLI globally
+npm link
+```
+
+## 💻 Usage
+
+### 🔧 Interactive Mode
+
+```bash
+seckit-cli
+```
+
+## 🔍 Command Mode
+
+### Compress a File or Directory
+
+```bash
+seckit-cli compress <path>
+```
+
+### Encrypt a File
+
+```bash
+seckit-cli encrypt -i <input-file> -p <password> -o <output-file>
+```
+
+### Upload a File
+
+```bash
+seckit-cli upload -i <input-file> -d <destination-url>
+```
+
+## 🔗 Chained Operations
+
+### Chain multiple steps together in one command.
+
+```bash
+seckit-cli chain -ceu -i <input-path> -p <password> -d <destination-url>
+```
+
+#### Flags:
+
+- -c: Compress
+- -e: Encrypt
+- -u: Upload
+
+Example:
+
+```bash
+seckit-cli process -ceu -i ./my-folder -p strongpass123
+```
