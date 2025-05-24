@@ -62,11 +62,11 @@ export function encryptFile(
 /**
  * Decrypt a previously encrypted file
  */
-export function decryptFile(
+export const decryptFile = (
   inputPath: string,
   password: string,
   outputPath?: string
-): void {
+) => {
   const absoluteInput = path.resolve(inputPath);
   const absoluteOutput = path.resolve(
     outputPath || inputPath.replace(/\.enc$/, "")
@@ -97,7 +97,7 @@ export function decryptFile(
   fs.writeFileSync(absoluteOutput, decrypted);
 
   console.log(chalk.green(`🔓 File decrypted successfully: ${absoluteOutput}`));
-}
+};
 
 export const handleEncryption = async (options: {
   input?: string;
